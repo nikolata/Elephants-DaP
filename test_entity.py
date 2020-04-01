@@ -13,8 +13,6 @@ class TestEntity(unittest.TestCase):
 
         self.assertEqual(0, entity.health)
 
-
-
     def test_take_healing_when_hero_is_dead_returns_false(self):
         healing = 30
         entity = Entity(health = 0, mana = 50)
@@ -22,19 +20,23 @@ class TestEntity(unittest.TestCase):
         result = entity.take_healing(healing)
         self.assertFalse(result)
 
-    def test_take_healing_when_healt_plus_healing_is_greather_than_100_hero_health_should_equal_100(self):
+    def test_take_healing_when_health_plus_healing_is_greather_than_max_health_hero_health_should_equal_max_health(self):
         healing = 80
         entity = Entity(health = 30, mana = 50)
         
         result = entity.take_healing(healing)
-        self.assertEqual(entity._current_health,100)
+        self.assertEqual(entity.health, 30)
 
-    def test_take_healing_when_healt_plus_healing_is_lower_than_100_hero_health_should_equal_the_sum(self):
+    def test_take_healing_when_health_plus_healing_is_lower_than_max_health_hero_health_should_equal_the_sum(self):
         healing = 50
-        entity = Entity(health = 30, mana = 50)
+        damage = 70
+        entity = Entity(health = 100, mana = 50)
         
+        entity.take_damage(damage)
         result = entity.take_healing(healing)
-        self.assertEqual(entity._current_health,80)
+
+        self.assertEqual(entity.health, 80)
+
     def test_take_healing_when_hero_is_alive_returns_True(self):
         healing = 50
         entity = Entity(health = 30, mana = 50)

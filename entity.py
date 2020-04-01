@@ -22,32 +22,35 @@ class Entity:
         if self._spell == None:
             return False
         if self._spell.get_mana_cost() > self._current_mana:
-            return False
+            raise LogicError("No mana!")
         return True 
-    
+  
     def take_damage(self, damage):
         self._current_health -= damage
         if self._current_health < 0:
             self._current_health = 0
 
-
     def take_healing(self,healing_points):
-        if self._current_health == 0:
+        if not self.is_alive():
             return False
-        if self._current_health + healing_points >100:
-            self._current_health = 100
+        if self._current_health + healing_points > self._max_health:
+            self._current_health = self._max_health
         else:
-            self._current_health +=healing_points
+            self._current_health += healing_points
         return True
+
     def equip(self,weapon):
         self._weapon = weapon
+
     def learn(self,spell):
         self._spell = spell
 
     def attack(self,by):
         if by == 'weapon':
-            return self._weapon.damage
+            if self._weapon != None:
+                return self._weapon.damage
         if by == 'magic':
-            return self._spell.damage
-        else:
-            return 0
+            if self._spell != None:
+                if can_cast(): 
+                    return self._spell.damage
+        return 0
