@@ -11,11 +11,11 @@ class Entity:
         return self._current_health > 0
 
     @property
-    def get_health(self):
+    def health(self):
         return self._current_health
 
     @property
-    def get_mana(self):
+    def mana(self):
         return self._current_mana
 
     def can_cast(self):
