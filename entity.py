@@ -31,5 +31,23 @@ class Entity:
             self._current_health = 0
 
 
-    
+    def take_healing(self,healing_points):
+        if self._current_health == 0:
+            return False
+        if self._current_health + healing_points >100:
+            self._current_health = 100
+        else:
+            self._current_health +=healing_points
+        return True
+    def equip(self,weapon):
+        self._weapon = weapon
+    def learn(self,spell):
+        self._spell = spell
 
+    def attack(self,by):
+        if by == 'weapon':
+            return self._weapon.damage
+        if by == 'magic':
+            return self._spell.damage
+        else:
+            return 0
