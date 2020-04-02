@@ -1,9 +1,21 @@
 import unittest
 from entity import Entity
+from spell import Spell
+from errors import LogicError
 
 class TestEntity(unittest.TestCase):
-    def test_can_cast(self):
-        pass
+    def test_can_cast_with_no_spell_returns_false(self):
+        entity = Entity(health = 100, mana = 50)
+
+        self.assertFalse(entity.can_cast())
+
+    def test_can_cast_with_not_enough_mana_raises_error(self):
+        entity = Entity(health = 100, mana = 30)
+        spell = Spell(name = "Fireball", damage = 30, mana_cost = 50, cast_range = 2)
+        entity.learn(spell)
+
+        with self.assertRaises(LogicError):
+            entity.can_cast()
 
     def test_take_damage(self):
         damage = 20

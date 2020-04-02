@@ -1,3 +1,6 @@
+from spell import Spell
+from errors import LogicError
+
 class Entity:
     def __init__(self, health, mana):
         self._max_health = float(health)
@@ -21,7 +24,7 @@ class Entity:
     def can_cast(self):
         if self._spell == None:
             return False
-        if self._spell.get_mana_cost() > self._current_mana:
+        if self._spell.mana_cost > self._current_mana:
             raise LogicError("No mana!")
         return True 
   
@@ -39,6 +42,11 @@ class Entity:
             self._current_health += healing_points
         return True
 
+    def take_mana(self, amount):
+        self._current_mana += amount
+        if self._current_mana > self._max_mana:
+            self._current_mana = self._max_mana
+
     def equip(self,weapon):
         self._weapon = weapon
 
@@ -51,6 +59,6 @@ class Entity:
                 return self._weapon.damage
         if by == 'magic':
             if self._spell != None:
-                if can_cast(): 
+                if self.can_cast(): 
                     return self._spell.damage
         return 0
