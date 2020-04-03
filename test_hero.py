@@ -15,5 +15,6 @@ class TestHero(unittest.TestCase):
         # self.assertEqual(52, hero.mana)
         pass
 
+
 if __name__ == '__main__':
     unittest.main()
