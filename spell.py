@@ -12,5 +12,3 @@ class Spell:
     @property
     def damage(self):
         return self._damage
-    
-    
