@@ -94,6 +94,7 @@ class Dungeon:
             # self.start_a_fight()
             self.map[self.hero.y][self.hero.x] = self.path
 
+        self.hero.take_mana(None)
         return True
 
     def can_attack(self, y, x, attack_range):
