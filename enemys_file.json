@@ -1,0 +1,29 @@
+{
+    "enemy 1": {
+        "_max_health": 100.0,
+        "_max_mana": 40,
+        "_current_health": 100.0,
+        "_current_mana": 40,
+        "_weapon": null,
+        "_spell": null,
+        "damage": 20
+    },
+    "enemy 2": {
+        "_max_health": 150.0,
+        "_max_mana": 10,
+        "_current_health": 150.0,
+        "_current_mana": 10,
+        "_weapon": null,
+        "_spell": null,
+        "damage": 10
+    },
+    "enemy 3": {
+        "_max_health": 60.0,
+        "_max_mana": 20,
+        "_current_health": 60.0,
+        "_current_mana": 20,
+        "_weapon": null,
+        "_spell": null,
+        "damage": 40
+    }
+}
