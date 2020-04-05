@@ -10,7 +10,8 @@ __all__ = [
     'print_enemy_information',
     'print_stats',
     'display_hero_options',
-    'print_hero_takes_health_potions']
+    'print_hero_takes_health_potions',
+    'print_hero_takes_mana_potions']
 
 
 def fight_start(hero, enemy):
@@ -73,11 +74,11 @@ def print_enemy_information(enemy):
 
 
 def print_hero_takes_health_potions(hero):
-    print(colored('{} drank health potion. End of turn.', 'blue')).format(hero.name)
+    print(colored('{} drank health potion. End of turn.', 'blue').format(hero.name))
 
 
 def print_hero_takes_mana_potions(hero):
-    print(colored('{} drank mana potion. End of turn.', 'blue')).format(hero.name)
+    print(colored('{} drank mana potion. End of turn.', 'blue').format(hero.name))
 
 
 def print_stats(hero, enemy):
