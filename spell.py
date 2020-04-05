@@ -16,3 +16,7 @@ class Spell:
     @property
     def cast_range(self):
         return self._cast_range
+
+    @property
+    def name(self):
+        return self._name

@@ -23,6 +23,14 @@ class Entity:
     def mana(self):
         return self._current_mana
 
+    @property
+    def weapon(self):
+        return self._weapon
+
+    @property
+    def spell(self):
+        return self._spell
+
     def can_cast(self):
         if self._spell is None:
             return False
@@ -62,20 +70,12 @@ class Entity:
         if by == 'magic':
             if self._spell is not None:
                 if self.can_cast():
+                    self._current_mana -= self._spell.mana_cost
                     return self._spell.damage
         return 0
-
-    @property
-    def spell(self):
-        return self._spell
-
-    @property
-    def weapon(self):
-        return self._weapon
 
     def receive_mana_potion(self):
         self._mana_potions += 1
 
     def receive_health_potion(self):
         self._healing_potions += 1
-    

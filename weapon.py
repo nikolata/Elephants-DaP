@@ -7,3 +7,7 @@ class Weapon:
     @property
     def damage(self):
         return self._damage
+
+    @property
+    def name(self):
+        return self._name
