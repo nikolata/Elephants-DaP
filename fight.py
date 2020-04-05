@@ -1,6 +1,4 @@
 from enemy import Enemy
-import json
-from enemys_to_json import safe_enemys_to_file
 from hero import Hero
 from weapon import Weapon
 from spell import Spell
@@ -10,15 +8,11 @@ from termcolor import colored
 
 class Fight:
 
-    def __init__(self, enemy_number, enemy_x, enemy_y, spell=None, weapon=None):
-        loaded = safe_enemys_to_file()
-        enemys = json.loads(loaded)
-        curr_enemy = enemys['enemy ' + str(enemy_number)]
-        self.enemy = Enemy(curr_enemy['_max_health'], curr_enemy['_max_mana'], curr_enemy['damage'])
-        self.enemy.x = enemy_x
-        self.enemy.y = enemy_y
-        self.enemy._weapon = weapon
-        self.enemy._spell = spell
+    def __init__(self, enemy):
+#        loaded = safe_enemys_to_file()       enemys = json.loads(loaded)
+#        curr_enemy = enemys['enemy ' + str(enemy_number)]
+#        self.enemy = Enemy(curr_enemy['_max_health'], curr_enemy['_max_mana'], curr_enemy['damage'])
+        self.enemy = enemy
 
     def fight(self, hero, first_attack):
         first_round = True
@@ -36,6 +30,7 @@ class Fight:
                 first_round = False
             else:
                 if is_hero_turn is True:
+                    print(colored("{}'s turn", 'blue', attrs=['bold']).format(hero.name))
                     print('Choose your next move: ')
                     display_hero_options()
                     move = input().lower()
@@ -51,7 +46,7 @@ class Fight:
                         print_stats(hero, self.enemy)
                         is_hero_turn = False
                 else:
-                    print(colored("Enemy's turn", 'green'))
+                    print(colored("Enemy's turn", 'blue', attrs=['bold']))
                     self.enemy_move(hero)
                     print_stats(hero, self.enemy)
                     is_hero_turn = True
@@ -211,10 +206,17 @@ class Fight:
         elif hero.y > self.enemy.y and hero.x == self.enemy.x:
             self.enemy.y += 1
 
-
+'''
 s = Spell(name='vqtur', damage=20, mana_cost=40, cast_range=2)
 w = Weapon(name='Tupalka', damage=40)
-f = Fight(1, 0, 3, s, w)
+enemy = Enemy(health=100, mana=50, damage=30)
+enemy.x = 3
+enemy.y = 4
+s2 = Spell('vqtur', 50, 15, 2)
+w2 = Weapon('Nojka', damage=20)
+enemy.learn(s2)
+enemy.equip(w2)
+f = Fight(enemy)
 w = Weapon('kinjal', 30)
 h1 = Hero('ivan', 'gorskiq', 180, 50, 5)
 h1.x = 3
@@ -223,3 +225,4 @@ s = Spell('ogin', 60, 20, 3)
 h1.learn(s)
 h1.equip(w)
 f.fight(h1, w)
+'''

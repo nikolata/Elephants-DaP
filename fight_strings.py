@@ -1,3 +1,4 @@
+from termcolor import colored
 
 __all__ = [
     'fight_start',
@@ -15,17 +16,17 @@ __all__ = [
 def fight_start(hero, enemy):
     FIRST_HALF = 'A fight is started between {} (health={}, mana = {})'.format(hero.name, hero.health, hero.mana)
     SECOND_HALF = 'and Enemy(health={}, mana={}, damage={})'.format(enemy.health, enemy.mana, enemy.damage)
-    print(FIRST_HALF, SECOND_HALF)
+    print(colored(FIRST_HALF, 'cyan', attrs=['bold']), colored(SECOND_HALF, 'cyan', attrs=['bold']))
 
 
 def print_hero_hits(hero):
     HERO_HITS = '{} hits with {} for {} dmg'.format(hero.name, hero._weapon.name, hero._weapon.damage)
-    print(HERO_HITS)
+    print(colored(HERO_HITS, 'red'))
 
 
 def print_hero_casts(hero):
     HERO_CASTS = '{} casts a {}, hits enemy for {} dmg'.format(hero.name, hero._spell.name, hero._spell.damage)
-    print(HERO_CASTS)
+    print(colored(HERO_CASTS, 'red'))
 
 
 def print_enemy_hits(enemy, by):
@@ -33,16 +34,16 @@ def print_enemy_hits(enemy, by):
         ENEMY_HITS = 'Enemy hits with {} for {} dmg'.format(enemy._weapon.name, enemy._weapon.damage)
     else:
         ENEMY_HITS = 'Enemy hits with basic atack for {} dmg'.format(enemy.damage)
-    print(ENEMY_HITS)
+    print(colored(ENEMY_HITS, 'yellow'))
 
 
 def print_enemy_casts(enemy):
     ENEMY_CASTS = 'Enemy casts a {}, hits enemy for {} dmg'.format(enemy._spell.name, enemy._spell.damage)
-    print(ENEMY_CASTS)
+    print(colored(ENEMY_CASTS, 'yellow'))
 
 
 def print_hero_information(hero):
-    print('{} stats:'.format(hero.name))
+    print(colored('{} stats:', 'green').format(hero.name))
     if hero._weapon is None:
         hero_weap = None
     else:
@@ -52,12 +53,12 @@ def print_hero_information(hero):
     else:
         hero_spel = hero._spell.damage
     HERO_INF = "Health:{} Mana:{} Weapon damage:{} Spell damage:{}".format(hero.health, hero.mana, hero_weap, hero_spel)
-    HERO_INF2 = 'Health potions: {} Mana potions: {}'.format(hero._health_potions, hero._mana_potions)
-    print(HERO_INF, HERO_INF2)
+    HERO_INF2 = 'Health potions: {} Mana potions: {}'.format(hero._healing_potions, hero._mana_potions)
+    print(colored(HERO_INF, 'cyan'), colored(HERO_INF2, 'cyan'))
 
 
 def print_enemy_information(enemy):
-    print('Enemy stats:')
+    print(colored('Enemy stats:', 'green'))
     if enemy._weapon is None:
         enemy_weap = None
     else:
@@ -68,15 +69,15 @@ def print_enemy_information(enemy):
         enemy_spel = enemy._spell.damage
     ENEMY_INF_1 = "Health:{} Mana:{} Weapon damage:{}".format(enemy.health, enemy.mana, enemy_weap)
     ENEMY_INF_2 = "Spell damage:{} Basic damage: {}".format(enemy_spel, enemy.damage)
-    print(ENEMY_INF_1, ENEMY_INF_2)
+    print(colored(ENEMY_INF_1, 'cyan'), colored(ENEMY_INF_2, 'cyan'))
 
 
 def print_hero_takes_health_potions(hero):
-    print('{} drank health potion. End of turn.').format(hero.name)
+    print(colored('{} drank health potion. End of turn.', 'blue')).format(hero.name)
 
 
 def print_hero_takes_mana_potions(hero):
-    print('{} drank mana potion. End of turn.').format(hero.name)
+    print(colored('{} drank mana potion. End of turn.', 'blue')).format(hero.name)
 
 
 def print_stats(hero, enemy):
@@ -86,4 +87,4 @@ def print_stats(hero, enemy):
 
 def display_hero_options():
     OPTIONS = 'AW = Atack with weapon/ AS = Atack with spell/ HP = Use Health Potion/ MP = Use Mana Potion'
-    print(OPTIONS)
+    print(colored(OPTIONS, 'cyan'))

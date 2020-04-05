@@ -14,7 +14,10 @@ class TestFight(unittest.TestCase):
         h.equip(w)
         h.x = 2
         h.y = 3
-        fight = Fight(enemy_number=3, enemy_x=3, enemy_y=3)
+        enemy = Enemy(health=100, mana=40, damage=60)
+        enemy.x = 3
+        enemy.y = 3
+        fight = Fight(enemy)
         status, error = fight.hero_move(h, 'aw')
         self.assertTrue(status)
 
@@ -24,14 +27,20 @@ class TestFight(unittest.TestCase):
         h.equip(w)
         h.x = 1
         h.y = 3
-        fight = Fight(enemy_number=3, enemy_x=3, enemy_y=3)
+        enemy = Enemy(health=100, mana=40, damage=60)
+        enemy.x = 3
+        enemy.y = 3
+        fight = Fight(enemy)
         status, error = fight.hero_move(h, 'aw')
         self.assertFalse(status)
         self.assertEqual(error, 'not in range')
 
     def test_hero_move_with_aw_and_not_equiped_weapon_should_return_false(self):
         h = Hero(name="Bron", title="Dragonslayer", health=100, mana=100, mana_regeneration_rate=2)
-        fight = Fight(enemy_number=3, enemy_x=3, enemy_y=3)
+        enemy = Enemy(health=100, mana=40, damage=60)
+        enemy.x = 3
+        enemy.y = 3
+        fight = Fight(enemy)
         status, error = fight.hero_move(h, 'aw')
         self.assertFalse(status)
         self.assertEqual(error, 'aw')
@@ -40,27 +49,39 @@ class TestFight(unittest.TestCase):
         h = Hero(name="Bron", title="Dragonslayer", health=100, mana=100, mana_regeneration_rate=2)
         s = Spell('fireball', 25, 15, 3)
         h.learn(s)
-        fight = Fight(enemy_number=3, enemy_x=3, enemy_y=3)
+        enemy = Enemy(health=100, mana=40, damage=60)
+        enemy.x = 3
+        enemy.y = 3
+        fight = Fight(enemy)
         status = fight.hero_move(h, 'as')
         self.assertTrue(status)
 
     def test_hero_move_with_as_and_not_learned_spell_should_return_false(self):
         h = Hero(name="Bron", title="Dragonslayer", health=100, mana=100, mana_regeneration_rate=2)
-        fight = Fight(enemy_number=3, enemy_x=3, enemy_y=3)
+        enemy = Enemy(health=100, mana=40, damage=60)
+        enemy.x = 3
+        enemy.y = 3
+        fight = Fight(enemy)
         status, error = fight.hero_move(h, 'as')
         self.assertFalse(status)
         self.assertEqual(error, 'as')
 
     def test_if_hero_move_input_is_not_from_our_options_should_return_false_and_other(self):
         h = Hero(name="Bron", title="Dragonslayer", health=100, mana=100, mana_regeneration_rate=2)
-        fight = Fight(enemy_number=3, enemy_x=3, enemy_y=3)
+        enemy = Enemy(health=100, mana=40, damage=60)
+        enemy.x = 3
+        enemy.y = 3
+        fight = Fight(enemy)
         status, error = fight.hero_move(h, 'test')
         self.assertFalse(status)
         self.assertEqual(error, 'other')
 
     def test_if_move_hero_one_step_moves_hero_x_with_one_position_on_right(self):
         h = Hero(name="Bron", title="Dragonslayer", health=100, mana=100, mana_regeneration_rate=2)
-        fight = Fight(enemy_number=3, enemy_x=3, enemy_y=3)
+        enemy = Enemy(health=100, mana=40, damage=60)
+        enemy.x = 3
+        enemy.y = 3
+        fight = Fight(enemy)
         h.x = 1
         h.y = 3
         fight.move_hero_one_step(h)
@@ -68,7 +89,10 @@ class TestFight(unittest.TestCase):
 
     def test_if_move_hero_one_step_moves_hero_x_with_one_position_on_left(self):
         h = Hero(name="Bron", title="Dragonslayer", health=100, mana=100, mana_regeneration_rate=2)
-        fight = Fight(enemy_number=3, enemy_x=3, enemy_y=3)
+        enemy = Enemy(health=100, mana=40, damage=60)
+        enemy.x = 3
+        enemy.y = 3
+        fight = Fight(enemy)
         h.x = 5
         h.y = 3
         fight.move_hero_one_step(h)
@@ -76,7 +100,10 @@ class TestFight(unittest.TestCase):
 
     def test_if_move_hero_one_step_moves_hero_y_with_one_position_down(self):
         h = Hero(name="Bron", title="Dragonslayer", health=100, mana=100, mana_regeneration_rate=2)
-        fight = Fight(enemy_number=3, enemy_x=3, enemy_y=3)
+        enemy = Enemy(health=100, mana=40, damage=60)
+        enemy.x = 3
+        enemy.y = 3
+        fight = Fight(enemy)
         h.x = 3
         h.y = 1
         fight.move_hero_one_step(h)
@@ -84,7 +111,10 @@ class TestFight(unittest.TestCase):
 
     def test_if_move_hero_one_step_moves_hero_y_with_one_position_up(self):
         h = Hero(name="Bron", title="Dragonslayer", health=100, mana=100, mana_regeneration_rate=2)
-        fight = Fight(enemy_number=3, enemy_x=3, enemy_y=3)
+        enemy = Enemy(health=100, mana=40, damage=60)
+        enemy.x = 3
+        enemy.y = 3
+        fight = Fight(enemy)
         h.x = 3
         h.y = 5
         fight.move_hero_one_step(h)
