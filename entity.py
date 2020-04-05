@@ -9,6 +9,8 @@ class Entity:
         self._current_mana = mana
         self._weapon = None
         self._spell = None
+        self._healing_potions = 0
+        self._mana_potions = 0
 
     def is_alive(self):
         return self._current_health > 0
@@ -62,3 +64,18 @@ class Entity:
                 if self.can_cast():
                     return self._spell.damage
         return 0
+
+    @property
+    def spell(self):
+        return self._spell
+
+    @property
+    def weapon(self):
+        return self._weapon
+
+    def receive_mana_potion(self):
+        self._mana_potions += 1
+
+    def receive_health_potion(self):
+        self._healing_potions += 1
+    

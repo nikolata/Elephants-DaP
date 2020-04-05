@@ -12,3 +12,7 @@ class Spell:
     @property
     def damage(self):
         return self._damage
+
+    @property
+    def cast_range(self):
+        return self._cast_range
