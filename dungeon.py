@@ -1,6 +1,7 @@
 from random import choice
 from treasure import Treasure
 import json
+from errors import LogicError
 from spell import Spell
 from weapon import Weapon
 from fight import Fight
@@ -13,7 +14,7 @@ class Dungeon:
     treasure = 'T'
     obstacle = '#'
     path = '.'
-    enemy = 'E'
+    enemy_symbol = 'E'
     hero_symbol = 'H'
 
     def __init__(self, map_file, treasure_file, enemy_file):
@@ -45,8 +46,8 @@ class Dungeon:
 
     def spawn(self, hero):
         self.hero = hero
-        self.hero.take_healing(hero._max_health)
-        self.hero.take_mana(hero._max_mana)
+        self.hero._current_health = hero._max_health
+        self.hero._current_mana = hero._max_mana
         for y in range(len(self.map)):
             if self.spawning_point in self.map[y]:
                 x = self.map[y].index(self.spawning_point)
@@ -98,7 +99,7 @@ class Dungeon:
             self.pick_up_treasure()
             self.map[self.hero.y][self.hero.x] = self.path
 
-        if self.map[self.hero.y][self.hero.x] == self.enemy:
+        if self.map[self.hero.y][self.hero.x] == self.enemy_symbol:
             if self.hero.spell is not None and self.hero.weapon is not None:
                 first_attack = choice([self.hero.weapon, self.hero.spell])
             else:
@@ -113,16 +114,16 @@ class Dungeon:
         return True
 
     def start_a_fight(self, enemy_x, enemy_y, first_attack):
-        weapons = self.weapons.append(None)
-        spells = self.spells.append(None)
+        weapons = self.weapons + [None]
+        spells = self.spells + [None]
         weapon = choice(weapons)
         spell = choice(spells)
-        enemy = choice(self.enemies)
-        enemy.x = enemy_x
-        enemy.y = enemy_y
-        enemy.learn(spell)
-        enemy.equip(weapon)
-        fight = Fight(enemy)
+        self.enemy = choice(self.enemies)
+        self.enemy.x = enemy_x
+        self.enemy.y = enemy_y
+        self.enemy.learn(spell)
+        self.enemy.equip(weapon)
+        fight = Fight(self.enemy)
         return fight.fight(self.hero, first_attack)
 
     def can_attack(self, y, x, attack_range):
@@ -131,7 +132,7 @@ class Dungeon:
                 return False
             if self.map[self.hero.y + y * k][self.hero.x + x * k] == self.obstacle:
                 return False
-            if self.map[self.hero.y + y * k][self.hero.x + x * k] == self.enemy:
+            if self.map[self.hero.y + y * k][self.hero.x + x * k] == self.enemy_symbol:
                 return (self.hero.y + y * k, self.hero.x + x * k)
         return False
 
@@ -141,26 +142,29 @@ class Dungeon:
         for i in range(4):
             attack = self.can_attack(y[i], x[i], attack_range)
             if attack:
+                self.map[attack[0]][attack[1]] = self.path
                 if self.start_a_fight(attack[1], attack[0], by):
-                    self.map[attack[0]][attack[1]] = self.path
-                else:
+                    self.map[self.enemy.y][self.enemy.x] = self.enemy_symbol
                     if not self.spawn(self.hero):
                         print("End Game!")
                 break
 
     def hero_attack(self, by):
+        by = by.lower()
         if by == "weapon":
-            if self.hero.weapon == None:
+            if self.hero.weapon is None:
                 print("You have no weapon!")
             else:
                 self.try_attack(1, self.hero.weapon)
-        if by == "magic":
-            if self.hero.spell == None:
+        elif by == "magic":
+            if self.hero.spell is None:
                 print("You have no spell!")
             else:
                 try:
                     if self.hero.can_cast():
                         cast_range = self.hero.spell.cast_range
                         self.try_attack(cast_range, self.hero.spell)
-                except Exception as err:
+                except LogicError as err:
                     print(err)
+        else:
+            print("No such option for by")

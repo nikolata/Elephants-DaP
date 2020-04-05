@@ -12,7 +12,6 @@ class Fight:
         self.enemy = enemy
 
     def fight(self, hero, first_attack):
-        raise ValueError("pop")
         first_round = True
         is_hero_turn = False
         while hero.health != 0 and self.enemy.health != 0:

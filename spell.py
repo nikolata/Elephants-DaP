@@ -20,3 +20,7 @@ class Spell:
     @property
     def name(self):
         return self._name
+
+    def __str__(self):
+        return ("Name: " + self._name + ", damage: " + str(self._damage) +
+                ", mana_cost: " + str(self._mana_cost) + ", cast_range: " + str(self._cast_range))

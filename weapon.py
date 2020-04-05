@@ -11,3 +11,6 @@ class Weapon:
     @property
     def name(self):
         return self._name
+
+    def __str__(self):
+        return "Name: " + self.name + ", damage: " + str(self.damage)
