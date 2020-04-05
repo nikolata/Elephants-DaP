@@ -11,6 +11,3 @@ def safe_enemys_to_file():
         use_for_load = json.dumps(all_enemys, indent=4)
         f.write(json.dumps(all_enemys, indent=4))
     return use_for_load
-
-
-safe_enemys_to_file()

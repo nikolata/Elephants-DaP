@@ -6,7 +6,11 @@
         "_current_mana": 40,
         "_weapon": null,
         "_spell": null,
-        "damage": 20
+        "_health_potions": 0,
+        "_mana_potions": 0,
+        "damage": 20,
+        "x": null,
+        "y": null
     },
     "enemy 2": {
         "_max_health": 150.0,
@@ -15,7 +19,11 @@
         "_current_mana": 10,
         "_weapon": null,
         "_spell": null,
-        "damage": 10
+        "_health_potions": 0,
+        "_mana_potions": 0,
+        "damage": 10,
+        "x": null,
+        "y": null
     },
     "enemy 3": {
         "_max_health": 60.0,
@@ -24,6 +32,10 @@
         "_current_mana": 20,
         "_weapon": null,
         "_spell": null,
-        "damage": 40
+        "_health_potions": 0,
+        "_mana_potions": 0,
+        "damage": 40,
+        "x": null,
+        "y": null
     }
 }

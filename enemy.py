@@ -7,6 +7,8 @@ class Enemy(Entity):
             raise ValueError
         super().__init__(health, mana)
         self.damage = damage
+        self.x = None
+        self.y = None
 
     def take_mana(self, mana_potion):
         if mana_potion <= 0:
