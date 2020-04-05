@@ -1,7 +1,4 @@
-from enemy import Enemy
-from hero import Hero
 from weapon import Weapon
-from spell import Spell
 from fight_strings import *
 from termcolor import colored
 
@@ -9,12 +6,13 @@ from termcolor import colored
 class Fight:
 
     def __init__(self, enemy):
-#        loaded = safe_enemys_to_file()       enemys = json.loads(loaded)
-#        curr_enemy = enemys['enemy ' + str(enemy_number)]
-#        self.enemy = Enemy(curr_enemy['_max_health'], curr_enemy['_max_mana'], curr_enemy['damage'])
+        # loaded = safe_enemys_to_file()       enemys = json.loads(loaded)
+        # curr_enemy = enemys['enemy ' + str(enemy_number)]
+        # self.enemy = Enemy(curr_enemy['_max_health'], curr_enemy['_max_mana'], curr_enemy['damage'])
         self.enemy = enemy
 
     def fight(self, hero, first_attack):
+        raise ValueError("pop")
         first_round = True
         is_hero_turn = False
         while hero.health != 0 and self.enemy.health != 0:
@@ -142,7 +140,6 @@ class Fight:
         return status, error
 
     def hero_move(self, hero, move):
-
         if move == 'aw':
             if hero.weapon is not None:
                 if self.enemy.y == hero.y and abs(self.enemy.x - hero.x) == 1:
@@ -205,6 +202,7 @@ class Fight:
             self.enemy.y -= 1
         elif hero.y > self.enemy.y and hero.x == self.enemy.x:
             self.enemy.y += 1
+
 
 '''
 s = Spell(name='vqtur', damage=20, mana_cost=40, cast_range=2)

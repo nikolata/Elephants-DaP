@@ -1,0 +1,5 @@
+{
+	"enemies" : [ {"health" : 100, "mana" : 40, "damage" :20},
+				  {"health" : 150, "mana" : 10, "damage" :10},
+				  {"health" : 60, "mana" : 20, "damage" :40}]
+}
