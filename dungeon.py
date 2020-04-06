@@ -46,28 +46,33 @@ class Dungeon:
 
     def spawn(self, hero):
         self.hero = hero
-        self.hero._current_health = hero._max_health
-        self.hero._current_mana = hero._max_mana
         for y in range(len(self.map)):
             if self.spawning_point in self.map[y]:
                 x = self.map[y].index(self.spawning_point)
                 self.hero.x = x
                 self.hero.y = y
                 self.map[self.hero.y][self.hero.x] = self.path
+                self.hero._current_health = hero._max_health
+                self.hero._current_mana = hero._max_mana
                 return True
         return False
 
     def pick_up_treasure(self):
+        print('WOW!! YOU FOUND A TREASURE! :o')
         treasure = choice(list(Treasure))
         if treasure == Treasure.Weapon:
             weapon = choice(self.weapons)
+            print('You received this weapon: ' + str(weapon))
             self.hero.equip(weapon)
         if treasure == Treasure.Spell:
             spell = choice(self.spells)
+            print('You received this spell: ' + str(spell))
             self.hero.learn(spell)
         if treasure == Treasure.Health:
+            print('You received health potion')
             self.hero.receive_health_potion()
         if treasure == Treasure.Mana:
+            print('You received mana potion')
             self.hero.receive_mana_potion()
 
     def move_hero(self, direction):
@@ -84,15 +89,18 @@ class Dungeon:
 
         if not 0 <= self.hero.x < len(self.map[0]):
             self.hero.x = x
+            self.print_map()
             return False
 
         if not 0 <= self.hero.y < len(self.map):
             self.hero.y = y
+            self.print_map()
             return False
 
         if self.map[self.hero.y][self.hero.x] == self.obstacle:
             self.hero.x = x
             self.hero.y = y
+            self.print_map()
             return False
 
         if self.map[self.hero.y][self.hero.x] == self.treasure:
@@ -104,13 +112,18 @@ class Dungeon:
                 first_attack = choice([self.hero.weapon, self.hero.spell])
             else:
                 first_attack = self.hero.spell if self.hero.spell else self.hero.weapon
+            self.map[self.hero.y][self.hero.x] = self.path
             if self.start_a_fight(self.hero.x, self.hero.y, first_attack):
-                self.map[self.hero.y][self.hero.x] = self.path
-            else:
+                self.map[self.hero.y][self.hero.x] = self.enemy_symbol
                 if not self.spawn(self.hero):
-                        print("End Game!")
+                    print("End Game!")
+                else:
+                    print('HERO RESPAWNED!')
+            else:
+                self.enemies.remove(self.enemy)
 
         self.hero.take_mana(None)
+        self.print_map()
         return True
 
     def start_a_fight(self, enemy_x, enemy_y, first_attack):
@@ -147,7 +160,14 @@ class Dungeon:
                     self.map[self.enemy.y][self.enemy.x] = self.enemy_symbol
                     if not self.spawn(self.hero):
                         print("End Game!")
+                    else:
+                        print('HERO RESPAWNED!')
+                else:
+                    self.enemies.remove(self.enemy)
                 break
+            # else:
+            #   print("Hero can't see an enemy to attack!")
+            #  break
 
     def hero_attack(self, by):
         by = by.lower()
@@ -164,7 +184,22 @@ class Dungeon:
                     if self.hero.can_cast():
                         cast_range = self.hero.spell.cast_range
                         self.try_attack(cast_range, self.hero.spell)
+                    else:
+                        print('Not in range!')
                 except LogicError as err:
                     print(err)
         else:
             print("No such option for by")
+
+    def can_exit(self):
+        for y in range(len(self.map)):
+            if self.gateway in self.map[y]:
+                x = self.map[y].index(self.gateway)
+                if self.hero.x == x and self.hero.y == y:
+                    for level in self.map:
+                        if level.count('E') != 0:
+                            print('YOU CANT LEAVE YET! YOU NEED TO KILL ALL ENEMIES!')
+                            return False
+                    print('YOU LEFT THE DUNGEON. WELL PLAYED!')
+                    return True
+        return False

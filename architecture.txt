@@ -1,1 +1,43 @@
-architecture
+class Entity():
+	contains all functions that will be given to hero or enemy
+
+class Hero(Entity):
+	inherits Entity's funcions and statements.
+	overrides take_mana
+	use @property's for statements
+
+
+class Enemy(Entity):
+	inherits Entity's funcions and statements.
+	overrides take_mana and attack
+
+class Dungeon():
+	contains the map
+	choose enemy from file and give it to Fight class
+	choose what treasure to give when treasure found on the map
+	start the fight
+	move hero trough the map
+	checks if hero can attack
+	checks if hero can leave the dungeon
+
+class Fight():
+	simulates a fight
+	give oportunity to player to choose what to do
+	simulate enemy decision for this round
+	move hero if not in range for weapon attack
+	move enemy if not in range for weapon/normal attack
+
+main:
+	calls play_game
+	play_game simulates the whole process
+
+levels:
+	level1.txt
+	level2.txt
+
+files:
+	treasure.json
+	enemies.json
+
+packages:
+	termcolor

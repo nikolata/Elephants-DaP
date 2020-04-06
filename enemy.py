@@ -10,6 +10,9 @@ class Enemy(Entity):
         self.x = None
         self.y = None
 
+    def __eq__(self, other):
+        return self.damage == other.damage
+
     def take_mana(self, mana_potion):
         if mana_potion <= 0:
             raise ValueError
