@@ -82,7 +82,7 @@ class Fight:
             else:
                 self.move_enemy_one_step(hero)
                 print('Enemy moves one step closer to Hero. End of enemy turn')
-        if spell_dmg > weap_dmg and spell_dmg > self.enemy.damage:
+        if spell_dmg >= weap_dmg and spell_dmg >= self.enemy.damage:
             if abs(hero.x - self.enemy.x) <= self.enemy._spell._cast_range:
                 if abs(hero.y - self.enemy.y) <= self.enemy._spell._cast_range:
                     hero.take_damage(self.enemy.attack(by='magic'))
