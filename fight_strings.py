@@ -21,16 +21,19 @@ def fight_start(hero, enemy):
 
 
 def print_hero_hits(hero):
+    print('')
     HERO_HITS = '{} hits with {} for {} dmg'.format(hero.name, hero._weapon.name, hero._weapon.damage)
     print(colored(HERO_HITS, 'red'))
 
 
 def print_hero_casts(hero):
+    print('')
     HERO_CASTS = '{} casts a {}, hits enemy for {} dmg'.format(hero.name, hero._spell.name, hero._spell.damage)
     print(colored(HERO_CASTS, 'red'))
 
 
 def print_enemy_hits(enemy, by):
+    print('')
     if by == 'weapon':
         ENEMY_HITS = 'Enemy hits with {} for {} dmg'.format(enemy._weapon.name, enemy._weapon.damage)
     else:
@@ -39,6 +42,7 @@ def print_enemy_hits(enemy, by):
 
 
 def print_enemy_casts(enemy):
+    print('')
     ENEMY_CASTS = 'Enemy casts a {}, hits enemy for {} dmg'.format(enemy._spell.name, enemy._spell.damage)
     print(colored(ENEMY_CASTS, 'yellow'))
 
@@ -74,15 +78,19 @@ def print_enemy_information(enemy):
 
 
 def print_hero_takes_health_potions(hero):
+    print('')
     print(colored('{} drank health potion. End of turn.', 'blue').format(hero.name))
 
 
 def print_hero_takes_mana_potions(hero):
+    print('')
     print(colored('{} drank mana potion. End of turn.', 'blue').format(hero.name))
 
 
 def print_stats(hero, enemy):
+    print('')
     print_hero_information(hero)
+    print('')
     print_enemy_information(enemy)
 
 
